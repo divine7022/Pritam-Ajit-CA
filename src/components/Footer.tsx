@@ -19,8 +19,11 @@ const Footer = () => {
           {/* Company Info */}
           <div className="space-y-6">
             <div className="flex items-center">
-              <div className="bg-primary text-white p-2 rounded-lg mr-3">
-                <span className="font-bold text-xl">P.A.</span>
+              <div className="flex-shrink-0 mr-3">
+                <img
+                  src="/ca_india_new_logo_sticker_cars_motorcycles_laptops-600x315w.jpg" // Assumes your logo is named this in the /public folder
+                  className="h-12 w-auto" // Adjust the height (h-12) as needed
+                />
               </div>
               <div>
                 <h3 className="text-xl font-bold">Pritam Ajit & Company</h3>
@@ -33,43 +36,6 @@ const Footer = () => {
               chartered accountants who deliver excellence with integrity across
               various industries.
             </p>
-            <div className="flex space-x-4">
-              <Button
-                size="sm"
-                variant="outline"
-                className="border-white/20 text-white hover:bg-white/10 p-2"
-              >
-                <Facebook className="h-4 w-4" />
-              </Button>
-              <Button
-                size="sm"
-                variant="outline"
-                className="border-white/20 text-white hover:bg-white/10 p-2"
-              >
-                <Twitter className="h-4 w-4" />
-              </Button>
-              <Button
-                size="sm"
-                variant="outline"
-                className="border-white/20 text-white hover:bg-white/10 p-2"
-              >
-                <Linkedin className="h-4 w-4" />
-              </Button>
-              <Button
-                size="sm"
-                variant="outline"
-                className="border-white/20 text-white hover:bg-white/10 p-2"
-              >
-                <Instagram className="h-4 w-4" />
-              </Button>
-              <Button
-                size="sm"
-                variant="outline"
-                className="border-white/20 text-white hover:bg-white/10 p-2"
-              >
-                <Youtube className="h-4 w-4" />
-              </Button>
-            </div>
           </div>
 
           {/* Our Branches */}
@@ -78,23 +44,7 @@ const Footer = () => {
             <div className="space-y-4">
               <div className="flex items-start space-x-2">
                 <MapPin className="h-4 w-4 text-primary mt-1 flex-shrink-0" />
-                <span className="text-gray-300">Mumbai Office</span>
-              </div>
-              <div className="flex items-start space-x-2">
-                <MapPin className="h-4 w-4 text-primary mt-1 flex-shrink-0" />
-                <span className="text-gray-300">Delhi Office</span>
-              </div>
-              <div className="flex items-start space-x-2">
-                <MapPin className="h-4 w-4 text-primary mt-1 flex-shrink-0" />
-                <span className="text-gray-300">Bangalore Office</span>
-              </div>
-              <div className="flex items-start space-x-2">
-                <MapPin className="h-4 w-4 text-primary mt-1 flex-shrink-0" />
-                <span className="text-gray-300">Pune Office</span>
-              </div>
-              <div className="flex items-start space-x-2">
-                <MapPin className="h-4 w-4 text-primary mt-1 flex-shrink-0" />
-                <span className="text-gray-300">Hyderabad Office</span>
+                <span className="text-gray-300">Aurangabad Office</span>
               </div>
             </div>
           </div>
@@ -117,7 +67,14 @@ const Footer = () => {
               </div>
               <div className="flex items-start space-x-2">
                 <Mail className="h-4 w-4 text-primary mt-1" />
-                <span className="text-gray-300">info@pritamajiandco.com</span>
+                <a
+                  className="text-gray-300"
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=anshikasupriya2308@gmail.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  anshikasupriya2308@gmail.com
+                </a>
               </div>
             </div>
           </div>
@@ -138,34 +95,6 @@ const Footer = () => {
                 Get Directions
               </Button>
             </div>
-
-            {/* Quick Services */}
-            <div className="space-y-3">
-              <h5 className="font-medium text-white">Quick Services:</h5>
-              <div className="flex flex-wrap gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="border-white/20 text-white hover:bg-white/10 text-xs"
-                >
-                  GST Filing
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="border-white/20 text-white hover:bg-white/10 text-xs"
-                >
-                  ITR Filing
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="border-white/20 text-white hover:bg-white/10 text-xs"
-                >
-                  Company Registration
-                </Button>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -174,33 +103,7 @@ const Footer = () => {
         {/* Bottom Footer */}
         <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <div className="text-gray-400 text-sm">
-            © 2024 Pritam Aji & Company. All rights reserved.
-          </div>
-          <div className="flex space-x-6 text-sm">
-            <a
-              href="#"
-              className="text-gray-400 hover:text-white transition-colors"
-            >
-              Privacy Policy
-            </a>
-            <a
-              href="#"
-              className="text-gray-400 hover:text-white transition-colors"
-            >
-              Terms of Service
-            </a>
-            <a
-              href="#"
-              className="text-gray-400 hover:text-white transition-colors"
-            >
-              Disclaimer
-            </a>
-            <a
-              href="#"
-              className="text-gray-400 hover:text-white transition-colors"
-            >
-              Sitemap
-            </a>
+            © 2024 Pritam Ajit & Company. All rights reserved.
           </div>
         </div>
       </div>

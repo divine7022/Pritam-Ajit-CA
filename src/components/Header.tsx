@@ -45,7 +45,7 @@ const Header = () => {
             <div className="flex items-center gap-2">
               <MapPin className="h-4 w-4" />
 
-              <span>Mumbai | Delhi | Bangalore</span>
+              <span>Aurangabad</span>
             </div>
           </div>
 
@@ -60,10 +60,12 @@ const Header = () => {
           {/* Logo */}
 
           <div className="flex items-center">
-            <div className="bg-white text-primary p-2 rounded-lg mr-3">
-              <span className="font-bold text-xl">P.A.</span>
+            <div className="flex-shrink-0 mr-3">
+              <img
+                src="/ca_india_new_logo_sticker_cars_motorcycles_laptops-600x315w.jpg" // Assumes your logo is named this in the /public folder
+                className="h-12 w-auto" // Adjust the height (h-12) as needed
+              />
             </div>
-
             <div>
               <h1 className="text-xl font-bold">Pritam Ajit & Company</h1>
 
@@ -339,14 +341,40 @@ const Header = () => {
                   </DropdownMenuSubTrigger>
 
                   <DropdownMenuSubContent>
-                    <DropdownMenuItem>Accounting Outsourcing </DropdownMenuItem>
-
-                    <DropdownMenuItem>SEZ Services</DropdownMenuItem>
-                    <DropdownMenuItem>Payroll Services</DropdownMenuItem>
-                    <DropdownMenuItem>
-                      SPTI & Non-SPTI Services
+                    <DropdownMenuItem className="p-0" asChild>
+                      <Link
+                        to="/accounting-outsourcing"
+                        className="px-2 py-1-5 w-full"
+                      >
+                        Accounting Outsourcing
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>Due Diligence </DropdownMenuItem>
+                    <DropdownMenuItem className="p-0" asChild>
+                      <Link to="/sez-services" className="px-2 py-1-5 w-full">
+                        SEZ Services
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="p-0" asChild>
+                      <Link
+                        to="/payroll-services"
+                        className="px-2 py-1-5 w-full"
+                      >
+                        Payroll Services
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="p-0" asChild>
+                      <Link
+                        to="/stpi-non-stpi-services"
+                        className="px-2 py-1.5 w-full"
+                      >
+                        STPI / Non-STPI Services
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="p-0" asChild>
+                      <Link to="/due-diligence" className="px-2 py-1.5 w-full">
+                        Due Diligence
+                      </Link>
+                    </DropdownMenuItem>
                   </DropdownMenuSubContent>
                 </DropdownMenuSub>
 
@@ -356,10 +384,28 @@ const Header = () => {
                   </DropdownMenuSubTrigger>
 
                   <DropdownMenuSubContent>
-                    <DropdownMenuItem>Business Valuation</DropdownMenuItem>
+                    <DropdownMenuItem className="p-0" asChild>
+                      <Link
+                        to="/business-valuation"
+                        className="px-2 py-1.5 w-full"
+                      >
+                        Business Valuation
+                      </Link>
+                    </DropdownMenuItem>
 
-                    <DropdownMenuItem>Captial Gain Advisory</DropdownMenuItem>
-                    <DropdownMenuItem>RERA Consultants</DropdownMenuItem>
+                    <DropdownMenuItem className="p-0" asChild>
+                      <Link
+                        to="/capital-gain-advisory"
+                        className="px-2 py-1.5 w-full"
+                      >
+                        Capital Gain Advisory
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="p-0" asChild>
+                      <Link to="/rera-services" className="px-2 py-1.5 w-full">
+                        RERA Services
+                      </Link>
+                    </DropdownMenuItem>
                   </DropdownMenuSubContent>
                 </DropdownMenuSub>
 
@@ -369,12 +415,38 @@ const Header = () => {
                   </DropdownMenuSubTrigger>
 
                   <DropdownMenuSubContent>
-                    <DropdownMenuItem>Joint Development</DropdownMenuItem>
+                    <DropdownMenuItem className="p-0" asChild>
+                      <Link
+                        to="/joint-development-agreement"
+                        className="px-2 py-1.5 w-full"
+                      >
+                        Joint Development Agreement
+                      </Link>
+                    </DropdownMenuItem>
 
-                    <DropdownMenuItem>Labour Law Consultancy</DropdownMenuItem>
-                    <DropdownMenuItem>Energy Sector Services</DropdownMenuItem>
-                    <DropdownMenuItem>
-                      Fixed Asset Verification
+                    <DropdownMenuItem className="p-0" asChild>
+                      <Link
+                        to="/labour-law-consultancy"
+                        className="px-2 py-1.5 w-full"
+                      >
+                        Labour Law Consultancy
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="p-0" asChild>
+                      <Link
+                        to="/energy-sector-services"
+                        className="px-2 py-1.5 w-full"
+                      >
+                        Energy Sector Services
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="p-0" asChild>
+                      <Link
+                        to="/fixed-asset-services"
+                        className="px-2 py-1.5 w-full"
+                      >
+                        Fixed Asset Services
+                      </Link>
                     </DropdownMenuItem>
                   </DropdownMenuSubContent>
                 </DropdownMenuSub>
@@ -385,26 +457,57 @@ const Header = () => {
                   </DropdownMenuSubTrigger>
 
                   <DropdownMenuSubContent>
-                    <DropdownMenuItem>Startup Registration</DropdownMenuItem>
-
-                    <DropdownMenuItem>Buisness Set Up</DropdownMenuItem>
-                    <DropdownMenuItem>Startup Funding</DropdownMenuItem>
-                    <DropdownMenuItem>Partnership</DropdownMenuItem>
-                    <DropdownMenuItem>
-                      Limited Liability Partnership
+                    <DropdownMenuItem className="p-0" asChild>
+                      <Link to="/proprietorship" className="px-2 py-1.5 w-full">
+                        Proprietorship
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="p-0" asChild>
+                      <Link to="/partnership" className="px-2 py-1.5 w-full">
+                        Partnership
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="p-0" asChild>
+                      <Link
+                        to="/llp-registration"
+                        className="px-2 py-1.5 w-full"
+                      >
+                        Limited Liability Partnership
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="p-0" asChild>
+                      <Link to="/trust-services" className="px-2 py-1.5 w-full">
+                        Trust Services
+                      </Link>
                     </DropdownMenuItem>
 
-                    <DropdownMenuItem>Trust</DropdownMenuItem>
-
-                    <DropdownMenuItem>Society</DropdownMenuItem>
-                    <DropdownMenuItem>Private Limited Company</DropdownMenuItem>
+                    <DropdownMenuItem className="p-0" asChild>
+                      <Link
+                        to="/society-registration"
+                        className="px-2 py-1.5 w-full"
+                      >
+                        Society Registration
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="p-0" asChild>
+                      <Link
+                        to="/private-limited-company"
+                        className="px-2 py-1.5 w-full"
+                      >
+                        Private Limited Company
+                      </Link>
+                    </DropdownMenuItem>
                   </DropdownMenuSubContent>
                 </DropdownMenuSub>
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Button variant="ghost" className="text-white hover:bg-white/10">
-              CAREER
+            <Button
+              variant="ghost"
+              className="text-white hover:bg-white/10"
+              asChild
+            >
+              <Link to="/career">CAREER</Link>
             </Button>
 
             <Button variant="ghost" className="text-white hover:bg-white/10">
