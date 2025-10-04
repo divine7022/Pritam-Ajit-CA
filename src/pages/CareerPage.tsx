@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -24,50 +26,67 @@ import {
   sendEmailViaBackend,
 } from "@/lib/emailService";
 
-interface CareerFormData {
-  name: string;
-  mobile: string;
-  email: string;
-  cv: FileList;
-  resume: FileList;
-}
+const careerFormSchema = z.object({
+  name: z.string().min(1, "Name is required").min(2, "Name must be at least 2 characters"),
+  mobile: z.string().min(1, "Mobile number is required").regex(/^[0-9]{10}$/, "Please enter a valid 10-digit mobile number"),
+  email: z.string().min(1, "Email is required").email("Please enter a valid email address"),
+  cv: z.any().refine((files) => files && files.length > 0, "CV is required"),
+  resume: z.any().refine((files) => files && files.length > 0, "Resume is required"),
+});
+
+type CareerFormData = z.infer<typeof careerFormSchema>;
 
 const CareerPage = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<CareerFormData>({
+    resolver: zodResolver(careerFormSchema),
     defaultValues: {
       name: "",
       mobile: "",
       email: "",
     },
+    mode: "onChange",
   });
 
   const onSubmit = async (data: CareerFormData) => {
     setIsSubmitting(true);
 
     try {
+      // Validate file sizes
+      const cvFile = data.cv?.[0];
+      const resumeFile = data.resume?.[0];
+      
+      if (cvFile && cvFile.size > 5 * 1024 * 1024) {
+        toast.error("CV file is too large", {
+          description: "Please upload a file smaller than 5MB",
+        });
+        return;
+      }
+      
+      if (resumeFile && resumeFile.size > 5 * 1024 * 1024) {
+        toast.error("Resume file is too large", {
+          description: "Please upload a file smaller than 5MB",
+        });
+        return;
+      }
+
       // Prepare email data
       const emailData = {
         name: data.name,
         mobile: data.mobile,
         email: data.email,
-        cvFile: data.cv?.[0],
-        resumeFile: data.resume?.[0],
+        cvFile: cvFile,
+        resumeFile: resumeFile,
       };
 
-      // Send email to xyz@gmail.com
-      // Option 1: Using EmailJS (uncomment the line below and configure EmailJS)
-      // await sendCareerApplicationEmail(emailData);
-
-      // Option 2: Using Backend Server (uncomment the line below and start backend server)
+      // Send application via backend
       await sendEmailViaBackend(emailData);
 
       // Show success message
       toast.success("Application submitted successfully!", {
-        description:
-          "We have received your application and sent a confirmation email to xyz@gmail.com",
+        description: `We have received your application and sent a confirmation email to ${data.email}`,
         duration: 5000,
       });
 
@@ -77,8 +96,13 @@ const CareerPage = () => {
       form.reset();
     } catch (error) {
       console.error("Form submission error:", error);
+      
+      // Show specific error message
+      const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred";
+      
       toast.error("Failed to submit application", {
-        description: "Please try again later or contact us directly",
+        description: errorMessage,
+        duration: 7000,
       });
     } finally {
       setIsSubmitting(false);
@@ -110,7 +134,7 @@ const CareerPage = () => {
                 <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
                   <Mail className="w-4 h-4" />
                   <span>
-                    A confirmation email has been sent to xyz@gmail.com
+                    A confirmation email has been sent to your registered email address
                   </span>
                 </div>
                 <Button
@@ -163,7 +187,6 @@ const CareerPage = () => {
                   <FormField
                     control={form.control}
                     name="name"
-                    rules={{ required: "Name is required" }}
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Full Name *</FormLabel>
@@ -182,13 +205,6 @@ const CareerPage = () => {
                   <FormField
                     control={form.control}
                     name="mobile"
-                    rules={{
-                      required: "Mobile number is required",
-                      pattern: {
-                        value: /^[0-9]{10}$/,
-                        message: "Please enter a valid 10-digit mobile number",
-                      },
-                    }}
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel className="flex items-center gap-2">
@@ -211,13 +227,6 @@ const CareerPage = () => {
                   <FormField
                     control={form.control}
                     name="email"
-                    rules={{
-                      required: "Email is required",
-                      pattern: {
-                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                        message: "Please enter a valid email address",
-                      },
-                    }}
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel className="flex items-center gap-2">
@@ -240,7 +249,6 @@ const CareerPage = () => {
                   <FormField
                     control={form.control}
                     name="cv"
-                    rules={{ required: "CV is required" }}
                     render={({ field: { onChange, value, ...field } }) => (
                       <FormItem>
                         <FormLabel>Upload CV *</FormLabel>
@@ -267,7 +275,6 @@ const CareerPage = () => {
                   <FormField
                     control={form.control}
                     name="resume"
-                    rules={{ required: "Resume is required" }}
                     render={({ field: { onChange, value, ...field } }) => (
                       <FormItem>
                         <FormLabel>Upload Resume *</FormLabel>

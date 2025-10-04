@@ -7,18 +7,32 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Dependencies
+/node_modules
 
-# Editor directories and files
+# Vite build output and cache
+/dist
+/dist-ssr
+.vite/
+
+# Local environment variables
+# Never commit .env files!
+.env
+.env.*.local
+
+# Editor and OS specific files
 .vscode/*
 !.vscode/extensions.json
-.idea
+.idea/
 .DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# Backend specific ignores
+# Make sure to ignore sensitive files and dependencies in your backend
+/backend/node_modules
+/backend/.env
+# Add backend build output if applicable, e.g., /backend/dist

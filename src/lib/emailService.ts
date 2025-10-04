@@ -96,14 +96,14 @@ export const sendConfirmationEmail = async (data: CareerApplicationData): Promis
   }
 };
 
-// Alternative: Simple email sending using a backend service
+// Backend email service with proper error handling
 export const sendEmailViaBackend = async (data: CareerApplicationData): Promise<void> => {
   try {
     const formData = new FormData();
     formData.append('name', data.name);
     formData.append('email', data.email);
     formData.append('mobile', data.mobile);
-    formData.append('to_email', 'xyz@gmail.com');
+    formData.append('to_email', 'anshikasupriya2308@gmail.com');
     
     if (data.cvFile) {
       formData.append('cv', data.cvFile);
@@ -112,20 +112,36 @@ export const sendEmailViaBackend = async (data: CareerApplicationData): Promise<
       formData.append('resume', data.resumeFile);
     }
 
-    // Replace with your backend endpoint
-    const response = await fetch('/api/send-career-email', {
+    // Use the backend server endpoint
+    const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3001';
+    const response = await fetch(`${backendUrl}/api/send-career-email`, {
       method: 'POST',
       body: formData,
     });
 
+    const result = await response.json();
+
     if (!response.ok) {
-      throw new Error('Failed to send email');
+      throw new Error(result.message || 'Failed to send application');
     }
 
-    console.log('Email sent via backend successfully');
+    if (!result.success) {
+      throw new Error(result.message || 'Application submission failed');
+    }
+
+    console.log('Application submitted successfully:', result);
     
   } catch (error) {
-    console.error('Failed to send email via backend:', error);
-    throw new Error('Failed to send application email');
+    console.error('Failed to send application via backend:', error);
+    
+    // Provide more specific error messages
+    if (error instanceof Error) {
+      if (error.message.includes('Failed to fetch')) {
+        throw new Error('Unable to connect to server. Please check your internet connection and try again.');
+      }
+      throw new Error(error.message);
+    }
+    
+    throw new Error('Failed to submit application. Please try again later.');
   }
 };
