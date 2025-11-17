@@ -13,45 +13,61 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="bg-ca-navy text-white">
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Company Info */}
+    <footer className="bg-gradient-to-br from-[#0A1128] via-[#0F1A3A] to-[#16244D] text-white relative overflow-hidden">
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute top-20 left-20 w-72 h-72 bg-blue-500/20 blur-[120px] rounded-full"></div>
+        <div className="absolute bottom-10 right-10 w-96 h-96 bg-primary/20 blur-[150px] rounded-full"></div>
+      </div>
+
+      <div className="container mx-auto px-6 py-20 relative">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-14">
+
           <div className="space-y-6">
             <div className="flex items-center">
-              <div className="flex-shrink-0 mr-3">
-                <img
-                  src="/ca_india_new_logo_sticker_cars_motorcycles_laptops-600x315w.jpg" // Assumes your logo is named this in the /public folder
-                  className="h-12 w-auto" // Adjust the height (h-12) as needed
-                />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold">Pritam Ajit & Company</h3>
-                <p className="text-sm opacity-90">Chartered Accountants</p>
+              <img
+                src="/ca_india_new_logo_sticker_cars_motorcycles_laptops-600x315w.jpg"
+                className="h-14 w-auto"
+              />
+              <div className="ml-3">
+                <h3 className="text-2xl font-extrabold tracking-wide">
+                  Pritam Ajit & Company
+                </h3>
+                <p className="text-sm text-gray-300">Chartered Accountants</p>
               </div>
             </div>
             <p className="text-gray-300 leading-relaxed">
-              Pritam Ajit & Co is a leading CA firm providing comprehensive
-              accounting and business advisory services. We offer reliable
-              chartered accountants who deliver excellence with integrity across
-              various industries.
+              A trusted name in finance, taxation, audit, and business advisory.
+              Delivering excellence, integrity, and industry-leading expertise
+              across multiple sectors for over 25 years.
             </p>
+
+            <div className="flex space-x-5 pt-2">
+              <Facebook className="h-6 w-6 opacity-70 hover:opacity-100 hover:text-primary transition" />
+              <Twitter className="h-6 w-6 opacity-70 hover:opacity-100 hover:text-primary transition" />
+              <Linkedin className="h-6 w-6 opacity-70 hover:opacity-100 hover:text-primary transition" />
+              <Instagram className="h-6 w-6 opacity-70 hover:opacity-100 hover:text-primary transition" />
+              <Youtube className="h-6 w-6 opacity-70 hover:opacity-100 hover:text-primary transition" />
+            </div>
           </div>
 
-          {/* Our Branches */}
           <div className="space-y-6">
-            <h4 className="text-lg font-semibold text-primary">OUR BRANCHES</h4>
+            <h4 className="text-lg font-semibold text-primary tracking-wide">
+              OUR BRANCHES
+            </h4>
             <div className="space-y-4">
-              <div className="flex items-start space-x-2">
-                <MapPin className="h-4 w-4 text-primary mt-1 flex-shrink-0" />
-                <span className="text-gray-300">Aurangabad Office</span>
+              <div className="flex items-start space-x-3">
+                <MapPin className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
+                <span className="text-gray-300 text-[15px]">
+                  Aurangabad Office
+                </span>
               </div>
             </div>
           </div>
 
-          {/* Contact Us */}
           <div className="space-y-6">
-            <h4 className="text-lg font-semibold text-primary">CONTACT US</h4>
+            <h4 className="text-lg font-semibold text-primary tracking-wide">
+              CONTACT US
+            </h4>
             <div className="space-y-4">
               <div>
                 <p className="text-white font-medium">Pritam Ajit</p>
@@ -68,7 +84,7 @@ const Footer = () => {
               <div className="flex items-start space-x-2">
                 <Mail className="h-4 w-4 text-primary mt-1" />
                 <a
-                  className="text-gray-300"
+                  className="text-gray-300 hover:text-primary transition"
                   href="https://mail.google.com/mail/?view=cm&fs=1&to=anshikasupriya2308@gmail.com"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -79,32 +95,38 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Head Office */}
           <div className="space-y-6">
-            <h4 className="text-lg font-semibold text-primary">HEAD OFFICE</h4>
+            <h4 className="text-lg font-semibold text-primary tracking-wide">
+              HEAD OFFICE
+            </h4>
             <div className="space-y-4">
-              <div className="flex items-start space-x-2">
-                <MapPin className="h-4 w-4 text-primary mt-1 flex-shrink-0" />
-                <div className="text-gray-300">
+              <div className="flex items-start space-x-3">
+                <MapPin className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
+                <div className="text-gray-300 text-[15px] leading-relaxed">
                   <p>No. 45, Business Center, 3rd Floor,</p>
                   <p>Above HDFC Bank, MG Road,</p>
                   <p>Mumbai - 400001, Maharashtra</p>
                 </div>
               </div>
-              <Button className="bg-primary hover:bg-primary/90 text-white">
-                Get Directions
+              <Button className="bg-primary hover:bg-primary/90 text-white shadow-lg" asChild>
+                <a
+                  href="https://www.google.com/maps?q=HDFC+Bank+MG+Road+Mumbai+400001"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Get Directions
+                </a>
               </Button>
             </div>
           </div>
         </div>
 
-        <Separator className="my-8 bg-white/20" />
+        <Separator className="my-10 bg-white/20" />
 
-        {/* Bottom Footer */}
-        <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-          <div className="text-gray-400 text-sm">
+        <div className="flex flex-col md:flex-row justify-between items-center">
+          <p className="text-gray-400 text-sm text-center md:text-left">
             © 2024 Pritam Ajit & Company. All rights reserved.
-          </div>
+          </p>
         </div>
       </div>
     </footer>

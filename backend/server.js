@@ -4,6 +4,7 @@ const nodemailer = require('nodemailer');
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
+const https = require('https');
 require('dotenv').config();
 
 console.log('EMAIL_USER:', process.env.EMAIL_USER);
@@ -290,6 +291,63 @@ app.use((error, req, res, next) => {
     success: false,
     message: 'Internal server error'
   });
+});
+
+// Finance news RSS proxy
+const rssSources = {
+  india: [
+    { url: 'https://www.moneycontrol.com/rss/latestnews.xml', source: 'Moneycontrol' },
+    { url: 'https://economictimes.indiatimes.com/rssfeedsdefault.cms?type=business', source: 'Economic Times' },
+  ],
+  global: [
+    { url: 'https://feeds.reuters.com/reuters/businessNews', source: 'Reuters' },
+    { url: 'https://www.cnbc.com/id/10000664/device/rss/rss.html', source: 'CNBC' },
+  ],
+};
+
+const fetchRss = (url) => new Promise((resolve, reject) => {
+  https.get(url, (res) => {
+    let data = '';
+    res.on('data', (chunk) => (data += chunk));
+    res.on('end', () => resolve(data));
+  }).on('error', reject);
+});
+
+const parseRss = (xml, source) => {
+  const items = [];
+  const itemRegex = /<item>([\s\S]*?)<\/item>/g;
+  let match;
+  while ((match = itemRegex.exec(xml)) !== null) {
+    const block = match[1];
+    const pick = (tag) => {
+      const m = new RegExp(`<${tag}>([\s\S]*?)<\/${tag}>`).exec(block);
+      return m ? m[1].replace(/<!\[CDATA\[(.*?)\]\]>/g, '$1').trim() : '';
+    };
+    items.push({
+      title: pick('title'),
+      link: pick('link'),
+      pubDate: pick('pubDate'),
+      source,
+    });
+  }
+  return items;
+};
+
+app.get('/api/news', async (req, res) => {
+  try {
+    const region = (req.query.region || 'india').toLowerCase();
+    const sources = rssSources[region] || rssSources.india;
+    const xmls = await Promise.all(sources.map((s) => fetchRss(s.url)));
+    let items = [];
+    xmls.forEach((xml, idx) => {
+      items = items.concat(parseRss(xml, sources[idx].source));
+    });
+    items = items.filter((i) => i.title && i.link).slice(0, 50);
+    res.json(items);
+  } catch (e) {
+    console.error('News fetch error:', e);
+    res.status(500).json({ success: false, message: 'Failed to fetch news' });
+  }
 });
 
 // Health check endpoint

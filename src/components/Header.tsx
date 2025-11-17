@@ -23,28 +23,26 @@ const handleClick = (id) => {
     console.warn(`Element with ID "${id}" not found.`);
   }
 };
-console.log("nkil");
-const Header = () => {
-  // We will use this state to control which dropdown is open
 
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+const Header = () => {
+  const [activeDropdown, setActiveDropdown] = useState(null);
 
   return (
     <header className="bg-primary text-primary-foreground">
-      {/* Top Contact Bar */}
 
+      {/* Top Contact Bar */}
       <div className="bg-ca-teal-dark py-2 px-4">
         <div className="container mx-auto flex justify-between items-center text-sm">
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
               <Phone className="h-4 w-4" />
-
-              <span>+91 98765 43210</span>
+              <a href="tel:+919876543210" className="hover:underline">
+                +91 98765 43210
+              </a>
             </div>
 
             <div className="flex items-center gap-2">
               <MapPin className="h-4 w-4" />
-
               <span>Aurangabad</span>
             </div>
           </div>
@@ -54,36 +52,31 @@ const Header = () => {
       </div>
 
       {/* Main Navigation */}
-
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          {/* Logo */}
 
+          {/* Logo */}
           <div className="flex items-center">
             <div className="flex-shrink-0 mr-3">
               <img
-                src="/ca_india_new_logo_sticker_cars_motorcycles_laptops-600x315w.jpg" // Assumes your logo is named this in the /public folder
-                className="h-12 w-auto" // Adjust the height (h-12) as needed
+                src="/ca_india_new_logo_sticker_cars_motorcycles_laptops-600x315w.jpg"
+                className="h-12 w-auto"
               />
             </div>
             <div>
               <h1 className="text-xl font-bold">Pritam Ajit & Company</h1>
-
               <p className="text-sm opacity-90">Chartered Accountants</p>
             </div>
           </div>
 
           {/* Navigation Menu */}
-
           <nav className="flex items-center space-x-1">
-            <Button
-              variant="ghost"
-              className="text-white hover:bg-white/10"
-              asChild
-            >
+
+            <Button variant="ghost" className="text-white hover:bg-white/10" asChild>
               <Link to="/">HOME</Link>
             </Button>
 
+            {/* ABOUT US */}
             <DropdownMenu
               open={activeDropdown === "about-us"}
               onOpenChange={(isOpen) =>
@@ -91,10 +84,7 @@ const Header = () => {
               }
             >
               <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  className="text-white hover:bg-white/10"
-                >
+                <Button variant="ghost" className="text-white hover:bg-white/10">
                   ABOUT US <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
@@ -136,8 +126,7 @@ const Header = () => {
                 <DropdownMenuItem
                   className="hover:bg-primary/10"
                   onSelect={() => {
-                    // The 'e' is no longer needed
-                    handleClick("our-services"); // <-- FIXED: Use the new lowercase ID.
+                    handleClick("our-services");
                     setTimeout(() => setActiveDropdown(null), 600);
                   }}
                 >
@@ -156,6 +145,8 @@ const Header = () => {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+
+            {/* INDIA MARKET ENTRY */}
             <DropdownMenu
               open={activeDropdown === "market-entry"}
               onOpenChange={(isOpen) =>
@@ -163,26 +154,18 @@ const Header = () => {
               }
             >
               <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  className="text-white hover:bg-white/10"
-                >
+                <Button variant="ghost" className="text-white hover:bg-white/10">
                   INDIA MARKET ENTRY <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
 
               <DropdownMenuContent className="w-64 bg-white shadow-lg">
-                {/* 👇 THIS IS THE UPDATED ITEM 👇 */}
                 <DropdownMenuItem className="hover:bg-primary/10 p-0" asChild>
-                  <Link
-                    to="/india-entry-strategy"
-                    className="px-2 py-1.5 w-full"
-                  >
+                  <Link to="/india-entry-strategy" className="px-2 py-1.5 w-full">
                     India Entry Strategy
                   </Link>
                 </DropdownMenuItem>
 
-                {/* You can do the same for the other items when you create their pages */}
                 <DropdownMenuItem className="hover:bg-primary/10 p-0" asChild>
                   <Link
                     to="/wholly-owned-subsidiary"
@@ -191,6 +174,7 @@ const Header = () => {
                     Wholly Owned Subsidiary (WOS)
                   </Link>
                 </DropdownMenuItem>
+
                 <DropdownMenuItem className="p-0" asChild>
                   <Link to="/branch-office" className="px-2 py-1.5 w-full">
                     Branch Office (BO)
@@ -198,17 +182,23 @@ const Header = () => {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            <DropdownMenu>
-              <DropdownMenuTrigger>
-                <Button
-                  variant="ghost"
-                  className="text-white hover:bg-white/10"
-                >
+
+            {/* SERVICES — FIXED + CONTROLLED */}
+            <DropdownMenu
+              open={activeDropdown === "services"}
+              onOpenChange={(isOpen) =>
+                setActiveDropdown(isOpen ? "services" : null)
+              }
+            >
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="text-white hover:bg-white/10">
                   SERVICES <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
 
               <DropdownMenuContent className="w-64 bg-white shadow-lg">
+
+                {/* AUDIT & ASSURANCE */}
                 <DropdownMenuSub>
                   <DropdownMenuSubTrigger className="hover:bg-primary/10">
                     Audit & Assurance
@@ -216,36 +206,29 @@ const Header = () => {
 
                   <DropdownMenuSubContent>
                     <DropdownMenuItem className="p-0" asChild>
-                      <Link
-                        to="/statutory-audit"
-                        className="px-2 py-1.5 w-full"
-                      >
+                      <Link to="/statutory-audit" className="px-2 py-1.5 w-full">
                         Statutory Audit
                       </Link>
                     </DropdownMenuItem>
+
                     <DropdownMenuItem className="p-0" asChild>
-                      <Link to="/internal-audit" className="px-2 py-1-5 w-full">
+                      <Link to="/internal-audit" className="px-2 py-1.5 w-full">
                         Internal Audit
                       </Link>
                     </DropdownMenuItem>
 
                     <DropdownMenuItem className="p-0" asChild>
-                      <Link
-                        to="/ind-as-advisory"
-                        className="px-2 py-1.5 w-full"
-                      >
+                      <Link to="/ind-as-advisory" className="px-2 py-1.5 w-full">
                         IND AS Advisory
                       </Link>
                     </DropdownMenuItem>
 
                     <DropdownMenuItem className="p-0" asChild>
-                      <Link
-                        to="/public-sector-audit"
-                        className="px-2 py-1.5 w-full"
-                      >
+                      <Link to="/public-sector-audit" className="px-2 py-1.5 w-full">
                         Public Sector Audit
                       </Link>
                     </DropdownMenuItem>
+
                     <DropdownMenuItem className="p-0" asChild>
                       <Link
                         to="/company-secretarial-services"
@@ -257,6 +240,7 @@ const Header = () => {
                   </DropdownMenuSubContent>
                 </DropdownMenuSub>
 
+                {/* TAXATION SERVICES */}
                 <DropdownMenuSub>
                   <DropdownMenuSubTrigger className="hover:bg-primary/10">
                     Taxation Services
@@ -264,7 +248,7 @@ const Header = () => {
 
                   <DropdownMenuSubContent>
                     <DropdownMenuItem className="p-0" asChild>
-                      <Link to="/tax-audit" className="px-2 py-1-5 w-full">
+                      <Link to="/tax-audit" className="px-2 py-1.5 w-full">
                         Tax Audit
                       </Link>
                     </DropdownMenuItem>
@@ -272,20 +256,21 @@ const Header = () => {
                     <DropdownMenuItem className="p-0" asChild>
                       <Link
                         to="/income-tax-advisory"
-                        className="px-2 py-1-5 w-full"
+                        className="px-2 py-1.5 w-full"
                       >
                         Income Tax Advisory
                       </Link>
                     </DropdownMenuItem>
 
                     <DropdownMenuItem className="p-0" asChild>
-                      <Link to="/easy-it-filing" className="px-2 py-1-5 w-full">
+                      <Link to="/easy-it-filing" className="px-2 py-1.5 w-full">
                         Easy IT Filing
                       </Link>
                     </DropdownMenuItem>
                   </DropdownMenuSubContent>
                 </DropdownMenuSub>
 
+                {/* TRANSFER PRICING */}
                 <DropdownMenuSub>
                   <DropdownMenuSubTrigger className="hover:bg-primary/10">
                     Transfer Pricing
@@ -293,25 +278,20 @@ const Header = () => {
 
                   <DropdownMenuSubContent>
                     <DropdownMenuItem className="p-0" asChild>
-                      <Link
-                        to="/international-taxation"
-                        className="px-2 py-1-5 w-full"
-                      >
+                      <Link to="/international-taxation" className="px-2 py-1.5 w-full">
                         International Taxation
                       </Link>
                     </DropdownMenuItem>
 
                     <DropdownMenuItem className="p-0" asChild>
-                      <Link
-                        to="/transfer-pricing"
-                        className="px-2 py-1.5 w-full"
-                      >
+                      <Link to="/transfer-pricing" className="px-2 py-1.5 w-full">
                         Transfer Pricing
                       </Link>
                     </DropdownMenuItem>
                   </DropdownMenuSubContent>
                 </DropdownMenuSub>
 
+                {/* GST */}
                 <DropdownMenuSub>
                   <DropdownMenuSubTrigger className="hover:bg-primary/10">
                     GST
@@ -319,22 +299,20 @@ const Header = () => {
 
                   <DropdownMenuSubContent>
                     <DropdownMenuItem className="p-0" asChild>
-                      <Link
-                        to="/gst-registration"
-                        className="px-2 py-1.5 w-full"
-                      >
+                      <Link to="/gst-registration" className="px-2 py-1.5 w-full">
                         GST Registration
                       </Link>
                     </DropdownMenuItem>
 
                     <DropdownMenuItem className="p-0" asChild>
-                      <Link to="/gst-audit" className="px-2 py-1-5 w-full">
+                      <Link to="/gst-audit" className="px-2 py-1.5 w-full">
                         GST Audit
                       </Link>
                     </DropdownMenuItem>
                   </DropdownMenuSubContent>
                 </DropdownMenuSub>
 
+                {/* OUTSOURCING */}
                 <DropdownMenuSub>
                   <DropdownMenuSubTrigger className="hover:bg-primary/10">
                     Outsourcing
@@ -344,24 +322,24 @@ const Header = () => {
                     <DropdownMenuItem className="p-0" asChild>
                       <Link
                         to="/accounting-outsourcing"
-                        className="px-2 py-1-5 w-full"
+                        className="px-2 py-1.5 w-full"
                       >
                         Accounting Outsourcing
                       </Link>
                     </DropdownMenuItem>
+
                     <DropdownMenuItem className="p-0" asChild>
-                      <Link to="/sez-services" className="px-2 py-1-5 w-full">
+                      <Link to="/sez-services" className="px-2 py-1.5 w-full">
                         SEZ Services
                       </Link>
                     </DropdownMenuItem>
+
                     <DropdownMenuItem className="p-0" asChild>
-                      <Link
-                        to="/payroll-services"
-                        className="px-2 py-1-5 w-full"
-                      >
+                      <Link to="/payroll-services" className="px-2 py-1.5 w-full">
                         Payroll Services
                       </Link>
                     </DropdownMenuItem>
+
                     <DropdownMenuItem className="p-0" asChild>
                       <Link
                         to="/stpi-non-stpi-services"
@@ -370,6 +348,7 @@ const Header = () => {
                         STPI / Non-STPI Services
                       </Link>
                     </DropdownMenuItem>
+
                     <DropdownMenuItem className="p-0" asChild>
                       <Link to="/due-diligence" className="px-2 py-1.5 w-full">
                         Due Diligence
@@ -378,6 +357,7 @@ const Header = () => {
                   </DropdownMenuSubContent>
                 </DropdownMenuSub>
 
+                {/* BUSINESS ADVISORY */}
                 <DropdownMenuSub>
                   <DropdownMenuSubTrigger className="hover:bg-primary/10">
                     Business Advisory
@@ -385,10 +365,7 @@ const Header = () => {
 
                   <DropdownMenuSubContent>
                     <DropdownMenuItem className="p-0" asChild>
-                      <Link
-                        to="/business-valuation"
-                        className="px-2 py-1.5 w-full"
-                      >
+                      <Link to="/business-valuation" className="px-2 py-1.5 w-full">
                         Business Valuation
                       </Link>
                     </DropdownMenuItem>
@@ -401,6 +378,7 @@ const Header = () => {
                         Capital Gain Advisory
                       </Link>
                     </DropdownMenuItem>
+
                     <DropdownMenuItem className="p-0" asChild>
                       <Link to="/rera-services" className="px-2 py-1.5 w-full">
                         RERA Services
@@ -409,6 +387,7 @@ const Header = () => {
                   </DropdownMenuSubContent>
                 </DropdownMenuSub>
 
+                {/* MANAGEMENT CONSULTING */}
                 <DropdownMenuSub>
                   <DropdownMenuSubTrigger className="hover:bg-primary/10">
                     Management Consulting
@@ -432,6 +411,7 @@ const Header = () => {
                         Labour Law Consultancy
                       </Link>
                     </DropdownMenuItem>
+
                     <DropdownMenuItem className="p-0" asChild>
                       <Link
                         to="/energy-sector-services"
@@ -440,6 +420,7 @@ const Header = () => {
                         Energy Sector Services
                       </Link>
                     </DropdownMenuItem>
+
                     <DropdownMenuItem className="p-0" asChild>
                       <Link
                         to="/fixed-asset-services"
@@ -451,6 +432,7 @@ const Header = () => {
                   </DropdownMenuSubContent>
                 </DropdownMenuSub>
 
+                {/* STARTUP SERVICES */}
                 <DropdownMenuSub>
                   <DropdownMenuSubTrigger className="hover:bg-primary/10">
                     Startup Services
@@ -462,11 +444,13 @@ const Header = () => {
                         Proprietorship
                       </Link>
                     </DropdownMenuItem>
+
                     <DropdownMenuItem className="p-0" asChild>
                       <Link to="/partnership" className="px-2 py-1.5 w-full">
                         Partnership
                       </Link>
                     </DropdownMenuItem>
+
                     <DropdownMenuItem className="p-0" asChild>
                       <Link
                         to="/llp-registration"
@@ -475,6 +459,7 @@ const Header = () => {
                         Limited Liability Partnership
                       </Link>
                     </DropdownMenuItem>
+
                     <DropdownMenuItem className="p-0" asChild>
                       <Link to="/trust-services" className="px-2 py-1.5 w-full">
                         Trust Services
@@ -482,13 +467,11 @@ const Header = () => {
                     </DropdownMenuItem>
 
                     <DropdownMenuItem className="p-0" asChild>
-                      <Link
-                        to="/society-registration"
-                        className="px-2 py-1.5 w-full"
-                      >
+                      <Link to="/society-registration" className="px-2 py-1.5 w-full">
                         Society Registration
                       </Link>
                     </DropdownMenuItem>
+
                     <DropdownMenuItem className="p-0" asChild>
                       <Link
                         to="/private-limited-company"
@@ -502,18 +485,19 @@ const Header = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Button
-              variant="ghost"
-              className="text-white hover:bg-white/10"
-              asChild
-            >
+            {/* CAREER */}
+            <Button variant="ghost" className="text-white hover:bg-white/10" asChild>
               <Link to="/career">CAREER</Link>
             </Button>
 
-            <Button variant="ghost" className="text-white hover:bg-white/10">
-              CONTACT US
+            {/* CONTACT US */}
+            <Button variant="ghost" className="text-white hover:bg-white/10" asChild>
+              <a href="mailto:anshikasupriya2308@gmail.com?subject=Website%20Inquiry">
+                CONTACT US
+              </a>
             </Button>
           </nav>
+
         </div>
       </div>
     </header>
